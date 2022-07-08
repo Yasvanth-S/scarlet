@@ -1,0 +1,1 @@
+/home/jetson/scarlet/devel/.private/my_motor_controller/lib/pkgconfig/my_motor_controller.pc

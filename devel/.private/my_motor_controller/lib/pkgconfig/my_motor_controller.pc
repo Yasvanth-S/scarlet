@@ -1,0 +1,8 @@
+prefix=/home/jetson/scarlet/devel/.private/my_motor_controller
+
+Name: my_motor_controller
+Description: Description of my_motor_controller
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

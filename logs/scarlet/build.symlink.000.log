@@ -1,0 +1,3 @@
+Symlinking /home/jetson/scarlet/devel/lib/pkgconfig/scarlet.pc
+Symlinking /home/jetson/scarlet/devel/share/scarlet/cmake/scarletConfig-version.cmake
+Symlinking /home/jetson/scarlet/devel/share/scarlet/cmake/scarletConfig.cmake

@@ -1,0 +1,12 @@
+Symlinking /home/jetson/scarlet/devel/./local_setup.bash
+Symlinking /home/jetson/scarlet/devel/./local_setup.zsh
+Symlinking /home/jetson/scarlet/devel/./local_setup.sh
+Symlinking /home/jetson/scarlet/devel/./_setup_util.py
+Symlinking /home/jetson/scarlet/devel/./setup.bash
+Symlinking /home/jetson/scarlet/devel/./setup.zsh
+Symlinking /home/jetson/scarlet/devel/./env.sh
+Symlinking /home/jetson/scarlet/devel/./cmake.lock
+Symlinking /home/jetson/scarlet/devel/./setup.sh
+Symlinking /home/jetson/scarlet/devel/lib/pkgconfig/catkin_tools_prebuild.pc
+Symlinking /home/jetson/scarlet/devel/share/catkin_tools_prebuild/cmake/catkin_tools_prebuildConfig.cmake
+Symlinking /home/jetson/scarlet/devel/share/catkin_tools_prebuild/cmake/catkin_tools_prebuildConfig-version.cmake

@@ -1,0 +1,6 @@
+devel_space: /home/jetson/scarlet/devel
+install: false
+install_space: /home/jetson/scarlet/install
+profile: default
+source_space: /home/jetson/scarlet/src
+workspace: /home/jetson/scarlet

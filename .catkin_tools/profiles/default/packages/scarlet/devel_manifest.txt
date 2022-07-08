@@ -1,0 +1,5 @@
+scarlet
+/home/jetson/scarlet/devel/.private/scarlet/cmake.lock /home/jetson/scarlet/devel/./cmake.lock
+/home/jetson/scarlet/devel/.private/scarlet/lib/pkgconfig/scarlet.pc /home/jetson/scarlet/devel/lib/pkgconfig/scarlet.pc
+/home/jetson/scarlet/devel/.private/scarlet/share/scarlet/cmake/scarletConfig-version.cmake /home/jetson/scarlet/devel/share/scarlet/cmake/scarletConfig-version.cmake
+/home/jetson/scarlet/devel/.private/scarlet/share/scarlet/cmake/scarletConfig.cmake /home/jetson/scarlet/devel/share/scarlet/cmake/scarletConfig.cmake

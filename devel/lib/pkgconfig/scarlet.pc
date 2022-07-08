@@ -1,0 +1,1 @@
+/home/jetson/scarlet/devel/.private/scarlet/lib/pkgconfig/scarlet.pc

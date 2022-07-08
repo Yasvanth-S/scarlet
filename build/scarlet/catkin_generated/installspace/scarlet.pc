@@ -1,0 +1,8 @@
+prefix=/home/jetson/scarlet/install
+
+Name: scarlet
+Description: Description of scarlet
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

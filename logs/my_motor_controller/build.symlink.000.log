@@ -1,0 +1,3 @@
+Symlinking /home/jetson/scarlet/devel/lib/pkgconfig/my_motor_controller.pc
+Symlinking /home/jetson/scarlet/devel/share/my_motor_controller/cmake/my_motor_controllerConfig-version.cmake
+Symlinking /home/jetson/scarlet/devel/share/my_motor_controller/cmake/my_motor_controllerConfig.cmake
