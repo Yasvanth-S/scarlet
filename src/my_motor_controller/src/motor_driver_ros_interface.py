@@ -94,7 +94,6 @@ if __name__ == '__main__':
     wheel_2 = MotorClass("/dev/wheel_2", 7, "wheel2_enc", "wheel2_vel")
     wheel_3 = MotorClass("/dev/wheel_3", 7, "wheel3_enc", "wheel3_vel")
     wheel_4 = MotorClass("/dev/wheel_4", 7, "wheel4_enc", "wheel4_vel")
-    y_axis = MotorClass("/dev/y_axis", 7, "yaxis_enc", "yaxis_vel")
     z_axis = MotorClass("/dev/z_axis", 7, "zaxis_enc", "zaxis_vel")
 
     while not rospy.is_shutdown():
@@ -102,7 +101,6 @@ if __name__ == '__main__':
         wheel_2.encoder_transmitter()
         wheel_3.encoder_transmitter()
         wheel_4.encoder_transmitter()
-        y_axis.encoder_transmitter()
         z_axis.encoder_transmitter()
 
     # Cleaning Up
@@ -111,14 +109,12 @@ if __name__ == '__main__':
     wheel_2.motor.brake()
     wheel_3.motor.brake()
     wheel_4.motor.brake()
-    y_axis.motor.brake()
     z_axis.motor.brake()
 
     del wheel_1
     del wheel_2
     del wheel_3
     del wheel_4
-    del y_axis
     del z_axis
 
     sys.exit(0)
