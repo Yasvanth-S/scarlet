@@ -3,7 +3,9 @@
 import rospy
 from sensor_msgs.msg import Joy
 from std_msgs.msg import Float32
-import RPi.GPIO as GPIO
+import Jetson.GPIO as GPIO
+import subprocess
+import shlex
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11,GPIO.OUT,initial=GPIO.LOW)
@@ -34,6 +36,7 @@ class JoyClass:
         self.zaxis_pub = rospy.Publisher("/zaxis_vel", Float32, queue_size=10)
         #self.test = rospy.Publisher("/test", Float32, queue_size=10)
         self.rate = rospy.Rate(10)
+        self.shutd = 0
 
     def joy_callback(self, msg):
         wheel1, wheel2, wheel3, wheel4, joyZ, angular = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
@@ -69,7 +72,11 @@ class JoyClass:
             shooter(1)
         if(msg.buttons[2]):
             shooter(0)
-        
+        if(msg.buttons[1]):
+            self.shutd += 1
+            if(self.shutd == 3):
+                cmd = shlex.split("sudo shutdown -h now")
+                subprocess.call(cmd)
 if __name__=="__main__":
     try:
         JoyClass()
