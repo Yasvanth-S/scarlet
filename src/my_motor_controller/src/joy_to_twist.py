@@ -40,8 +40,8 @@ class JoyClass:
 
     def joy_callback(self, msg):
         wheel1, wheel2, wheel3, wheel4, joyZ, angular = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-        rightTrig = (abs(msg.axes[4]-1.0)/2) 
-        leftTrig = (-abs(msg.axes[3]-1.0)/2)
+        rightTrig = (abs(msg.axes[3]-1.0)/2) 
+        leftTrig = (-abs(msg.axes[4]-1.0)/2)
         joyZ = round(msg.axes[4],1)
         if(rightTrig!=0 and leftTrig!=0):
             angular = 0.0
