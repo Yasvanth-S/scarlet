@@ -6,10 +6,12 @@ from std_msgs.msg import Float32
 import Jetson.GPIO as GPIO
 import subprocess
 import shlex
+import time
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11,GPIO.OUT,initial=GPIO.LOW)
 GPIO.setup(13,GPIO.OUT,initial=GPIO.HIGH)
+GPIO.setup(29,GPIO.OUT,initial=GPIO.LOW)
 GPIO.setup(33,GPIO.OUT)
 shoot = GPIO.PWM(33,100)
 shoot.start(0)
@@ -77,6 +79,10 @@ class JoyClass:
             if(self.shutd == 3):
                 cmd = shlex.split("sudo shutdown -h now")
                 subprocess.call(cmd)
+        if(msg.buttons[3]):
+            GPIO.output(29,GPIO.HIGH)
+            GPIO.output(29,GPIO.LOW)
+
 if __name__=="__main__":
     try:
         JoyClass()
