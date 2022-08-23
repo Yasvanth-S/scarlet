@@ -112,20 +112,19 @@ class OmniWheelTF:
             dx = ( d_left + d_right ) / 2
             dy = ( d_front + d_back ) / 2 
             # this approximation works (in radians) for small angles
-            th = ( (( d_left - d_right ) + ( d_front - d_back )) /2 ) / self.base_width
+            th = ( (( d_right - d_left ) + ( d_back - d_front )) /2 ) / self.base_width
             # calculate velocities
             self.dx = dx / elapsed
             self.dy = dy / elapsed
             self.dr = th / elapsed
-           
              
             if (dx != 0 or dy != 0 ):
                 # calculate distance traveled in x and y
-                x = -sin( th ) * dx
-                y = -sin( th ) * dy
+                x = cos( th ) * dy
+                y = cos( th ) * dx
                 # calculate the final position of the robot
                 self.x = self.x + ( cos( self.th ) * x - sin( self.th ) * y )
-                self.y = self.y + ( sin( self.th ) * x + cos( self.th ) * y )
+                self.y = self.y + ( cos( self.th ) * y - sin( self.th ) * x )
             if( th != 0):
                 self.th = self.th + th
                 
