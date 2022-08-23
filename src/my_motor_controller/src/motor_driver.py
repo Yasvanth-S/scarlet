@@ -98,12 +98,16 @@ class Controller:
             except KeyboardInterrupt:
                 print("Keyboard Interrupt: " + self.name)
             except modbus.ModbusException as e:
+                pass
                 print("ModbusException at " + self.name + ": " + str(e))
             except modbus.serial.SerialException as e:
+                pass
                 print("Modbus Serial Exception at " + self.name + ": " + str(e))
             except modbus.InvalidResponseError as e:
+                pass
                 print("Modbus Invalid Response Exception at " + self.name + ": " + str(e))
             except Exception as e:
+                pass
                 print("Motor Driver Exception at " + self.name + ": " + str(e))
                 print(traceback.format_exc())
             time.sleep(self.__time_delay)
@@ -137,12 +141,16 @@ class Controller:
             except KeyboardInterrupt:
                 print("Keyboard Interrupt: " + self.name)
             except modbus.ModbusException as e:
+                pass
                 print("ModbusException at " + self.name + ": " + str(e))
             except modbus.serial.SerialException as e:
+                pass
                 print("Modbus Serial Exception at " + self.name + ": " + str(e))
             except modbus.InvalidResponseError as e:
+                pass
                 print("Modbus Invalid Response Exception at " + self.name + ": " + str(e))
             except Exception as e:
+                pass
                 print("Motor Driver Exception at " + self.name + ": " + str(e))
                 print(traceback.format_exc())
             time.sleep(self.__time_delay)
@@ -159,12 +167,16 @@ class Controller:
             except KeyboardInterrupt:
                 print("Keyboard Interrupt: " + self.name)
             except modbus.ModbusException as e:
+                pass
                 print("ModbusException at " + self.name + ": " + str(e))
             except modbus.serial.SerialException as e:
+                pass
                 print("Modbus Serial Exception at " + self.name + ": " + str(e))
             except modbus.InvalidResponseError as e:
+                pass
                 print("Modbus Invalid Response Exception at " + self.name + ": " + str(e))
             except Exception as e:
+                pass
                 print("Motor Driver Exception at " + self.name + ": " + str(e))
                 print(traceback.format_exc())
 

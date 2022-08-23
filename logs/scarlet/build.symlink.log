@@ -1,3 +1,4 @@
-Symlinking /home/jetson/scarlet/devel/lib/pkgconfig/scarlet.pc
-Symlinking /home/jetson/scarlet/devel/share/scarlet/cmake/scarletConfig-version.cmake
-Symlinking /home/jetson/scarlet/devel/share/scarlet/cmake/scarletConfig.cmake
+Linked: (/home/jetson/scarlet/devel/.private/scarlet/lib/scarlet/odom_pub, /home/jetson/scarlet/devel/lib/scarlet/odom_pub)
+Linked: (/home/jetson/scarlet/devel/.private/scarlet/lib/pkgconfig/scarlet.pc, /home/jetson/scarlet/devel/lib/pkgconfig/scarlet.pc)
+Linked: (/home/jetson/scarlet/devel/.private/scarlet/share/scarlet/cmake/scarletConfig-version.cmake, /home/jetson/scarlet/devel/share/scarlet/cmake/scarletConfig-version.cmake)
+Linked: (/home/jetson/scarlet/devel/.private/scarlet/share/scarlet/cmake/scarletConfig.cmake, /home/jetson/scarlet/devel/share/scarlet/cmake/scarletConfig.cmake)

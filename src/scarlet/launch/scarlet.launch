@@ -2,4 +2,11 @@
         <node pkg="my_motor_controller" type="joy_to_twist.py" name="joy_to_twist" output="screen" />
         <node pkg="my_motor_controller" type="motor_driver_ros_interface.py" name="motor_driver" output="screen" />
         <node pkg="joy" type="joy_node" name="joy_node" output="screen" />
+
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+	<node name="gmapping" pkg="gmapping" type="slam_gmapping">
+    		<rosparam file="$(find scarlet)/config/gmapping.yaml" command="load"/>
+  	</node>
+
 </launch>

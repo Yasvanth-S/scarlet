@@ -7,10 +7,11 @@ import Jetson.GPIO as GPIO
 import subprocess
 import shlex
 import time
+from geometry_msgs.msg import Twist
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(11,GPIO.OUT,initial=GPIO.LOW)
-GPIO.setup(13,GPIO.OUT,initial=GPIO.HIGH)
+GPIO.setup(11,GPIO.OUT,initial=GPIO.HIGH)
+GPIO.setup(13,GPIO.OUT,initial=GPIO.LOW)
 GPIO.setup(29,GPIO.OUT,initial=GPIO.LOW)
 GPIO.setup(33,GPIO.OUT)
 shoot = GPIO.PWM(33,100)
@@ -20,8 +21,12 @@ def constrain(val, min_val, max_val):
     return min(max_val, max(min_val, val))
 
 def shooter(check):
-    if(check):
-        shoot.ChangeDutyCycle(99)
+    if(check == 50):
+        shoot.ChangeDutyCycle(38)
+    elif(check == 75):
+        shoot.ChangeDutyCycle(40)
+    elif(check == 99):
+        shoot.ChangeDutyCycle(42)  
     else:
         shoot.ChangeDutyCycle(0)
 
@@ -39,26 +44,43 @@ class JoyClass:
         #self.test = rospy.Publisher("/test", Float32, queue_size=10)
         self.rate = rospy.Rate(10)
         self.shutd = 0
+        self.velocity_subscriber = rospy.Subscriber('/cmd_vel', Twist, self.velocity_callback)
+        self.x = 0
+        self.y = 0
+        self.z = 0
+    
+    def velocity_callback(self,msg):
+        self.x = msg.linear.x
+        self.y = msg.linear.y
+        self.z = msg.angular.z
+        wheel1 = (-self.x/0.05) + (self.z /0.05)
+        wheel2 = (-self.y/0.05) + (self.z / 0.05)
+        wheel3 = (self.x/0.05) + (self.z / 0.05) # 0.038 is wheel radius
+        wheel4 = (self.y/0.05) + (self.z / 0.05)#angular negative due to inward placement of wheels
+        self.wheel1_pub.publish(wheel1)
+        self.wheel2_pub.publish(wheel2)
+        self.wheel3_pub.publish(wheel3)
+        self.wheel4_pub.publish(wheel4)
 
     def joy_callback(self, msg):
         wheel1, wheel2, wheel3, wheel4, joyZ, angular = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
         rightTrig = (abs(msg.axes[3]-1.0)/2) 
-        leftTrig = (-abs(msg.axes[4]-1.0)/2)
+        leftTrig = (msg.axes[4]-1.0)/2
         joyZ = round(msg.axes[4],1)
         if(rightTrig!=0 and leftTrig!=0):
             angular = 0.0
-        elif(rightTrig>0.0 and leftTrig == 0.0):
+        elif(rightTrig>0):
             angular = rightTrig
-        elif(leftTrig<0.0 and rightTrig == 0.0):
+        elif(leftTrig<0):
             angular = leftTrig
         #wheel1 = (msg.axes[0]+msg.axes[6]+angular)*1.5
         #wheel3 = (-msg.axes[0]-msg.axes[6]+angular)*1.5
         #wheel2 = (-msg.axes[1]-msg.axes[7]-angular)*1.5
         #wheel4 = (msg.axes[1]+msg.axes[7]-angular)*3.5      
-        wheel1 = (msg.axes[0]*1.5) + (msg.axes[6]*1.5) + (angular * 0.6)
-        wheel2 = (msg.axes[1]*1.5) + (msg.axes[7]*1.5) + (angular * 0.6)
-        wheel3 = (-msg.axes[0]*1.5) + (-msg.axes[6]*1.5) + (angular * 0.6)
-        wheel4 = (-msg.axes[1]*1.5) + (-msg.axes[7]*1.5) + (angular * 0.6)  #angular negative due to inward placement of wheels
+        wheel1 = (-msg.axes[0]*0.8) + (-msg.axes[6]*0.8) + (angular * 0.3)
+        wheel2 = (-msg.axes[1]*0.8) + (-msg.axes[7]*0.8) + (angular * 0.3)
+        wheel3 = (msg.axes[0]*0.8) + (msg.axes[6]*0.8) + (angular * 0.3)
+        wheel4 = (msg.axes[1]*0.8) + (msg.axes[7]*0.8) + (angular * 0.3)  #angular negative due to inward placement of wheels
         #wheel1 = (msg.axes[6])
         #wheel2 = (msg.axes[7])
         #wheel3 = (-msg.axes[6])
@@ -71,7 +93,11 @@ class JoyClass:
         if(joyZ > 0.3 or joyZ < -0.3 or joyZ==0.0):
             self.zaxis_pub.publish(-(msg.axes[5]*1.7))
         if(msg.buttons[0]):
-            shooter(1)
+            shooter(50)
+        if(msg.buttons[4]):
+            shooter(75)
+        if(msg.buttons[5]):
+            shooter(99)
         if(msg.buttons[2]):
             shooter(0)
         if(msg.buttons[1]):

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="quicksilver">
+	<xacro:include filename="$(find scarlet)/urdf/rplidar.urdf.xacro"/>
+	<xacro:include filename="$(find scarlet)/urdf/rim.urdf.xacro"/>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.75 0.75 0.03"/>
+    </geometry>
+    <origin rpy = "0 0 0" xyz="0 0 0.04"/>
+      <material name="white"/>
+    </visual>
+    <inertial>
+      <mass value="1"/>
+      <inertia
+        ixx="0.04695"
+        ixy="0"
+        ixz="0"
+        iyy="0.04695"
+        iyz="0"
+        izz="0.09385"/>
+      </inertial>
+	  <collision>
+		<geometry>
+			<box size="0.75 0.75 0.03"/>
+		</geometry>
+	  </collision>
+  </link>
+
+	
+<xacro:rplidar
+		name="laser"
+		xyz="0.0 0.30 0.09"
+		rpy="0.0 0.0 -1.57"
+		color="1 0.84 0 1" />
+  <xacro:rim_macro
+		name="wheel3"
+    	color="0.6 0 0"
+		xyz="-0.393 0 0.016"
+		rpy="1.570796326794896 0 1.5708"/>
+	<xacro:rim_macro
+		name="wheel4"
+		color="0 0.6 0"
+		xyz="0 -0.393 0.016"
+		rpy="1.570796326794896 0 3.141592653589793"/>
+	<xacro:rim_macro
+		name="wheel1"
+		color="0.6 0 0"
+		xyz="0.393 0 0.016"
+		rpy="1.570796326794896 0 -1.5708"/>
+	<xacro:rim_macro
+		name="wheel2"
+		color="0 0.6 0"
+		xyz="0 0.393 0.016"
+		rpy="1.570796326794896 0 0"/>
+
+
+	<gazebo reference="base_link">
+    		<material>Gazebo/Black</material>
+  	</gazebo>
+
+	<gazebo reference="rim_wheel4_link">
+    		<material>Gazebo/Green</material>
+  	</gazebo>
+
+	<gazebo reference="rim_wheel2_link">
+    		<material>Gazebo/Red</material>
+  	</gazebo>
+
+	<gazebo reference="rim_wheel3_link">
+    		<material>Gazebo/Green</material>
+  	</gazebo>
+  <gazebo reference="rim_wheel1_link">
+    <material>
+      Gazebo/Red
+    </material>
+  </gazebo>
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+		<robotNamespace>/open_base</robotNamespace>
+		</plugin>
+	</gazebo>
+
+ </robot>

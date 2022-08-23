@@ -38,7 +38,7 @@
 import sys
 import time
 import rospy
-from std_msgs.msg import Int16, Int32, UInt16, UInt32, Float32
+from std_msgs.msg import Int16, Int32, UInt16, UInt32, Float32, Float32MultiArray
 import motor_driver
 
 
@@ -85,44 +85,12 @@ class MotorClass:
         if (self.encoder_ticks_16bit is not None) and (self.encoder_ticks_32bit is not None):
             # self.encoder_ticks_pub_16bit.publish(int(self.encoder_ticks_16bit))
             self.encoder_ticks_pub_32bit.publish(int(self.encoder_ticks_32bit))
+            return self.__current_velocity
         #time.sleep(self.__time_delay)
-
-def motorconnect():
-    rospy.init_node('motor_ros_interface', anonymous=True)
-    wheel_1 = MotorClass("/dev/wheel_1", 7, "wheel1_enc", "wheel1_vel")
-    wheel_2 = MotorClass("/dev/wheel_2", 7, "wheel2_enc", "wheel2_vel")
-    wheel_3 = MotorClass("/dev/wheel_3", 7, "wheel3_enc", "wheel3_vel")
-    wheel_4 = MotorClass("/dev/wheel_4", 7, "wheel4_enc", "wheel4_vel")
-    z_axis = MotorClass("/dev/z-axis", 7, "zaxis_enc", "zaxis_vel")
-
-    while not rospy.is_shutdown():
-        wheel_1.encoder_transmitter()
-        wheel_2.encoder_transmitter()
-        wheel_3.encoder_transmitter()
-        wheel_4.encoder_transmitter()
-        z_axis.encoder_transmitter()
-
-    # Cleaning Up
-    rospy.loginfo("Stopping Motors before exiting ...")
-    wheel_1.motor.brake()
-    wheel_2.motor.brake()
-    wheel_3.motor.brake()
-    wheel_4.motor.brake()
-    z_axis.motor.brake()
-
-    del wheel_1
-    del wheel_2
-    del wheel_3
-    del wheel_4
-    del z_axis
-
-    sys.exit(0)
-
-
     
 if __name__ == '__main__':
-
-    while True:
+    pub = rospy.Publisher('encoder', Float32MultiArray, queue_size=1)
+    for i in range(10):
         try:
             rospy.init_node('motor_ros_interface', anonymous=True)
             wheel_1 = MotorClass("/dev/wheel_1", 7, "wheel1_enc", "wheel1_vel")
@@ -130,13 +98,16 @@ if __name__ == '__main__':
             wheel_3 = MotorClass("/dev/wheel_3", 7, "wheel3_enc", "wheel3_vel")
             wheel_4 = MotorClass("/dev/wheel_4", 7, "wheel4_enc", "wheel4_vel")
             z_axis = MotorClass("/dev/z-axis", 7, "zaxis_enc", "zaxis_vel")
-
             while not rospy.is_shutdown():
-                wheel_1.encoder_transmitter()
-                wheel_2.encoder_transmitter()
-                wheel_3.encoder_transmitter()
-                wheel_4.encoder_transmitter()
-                z_axis.encoder_transmitter()
+                wheel1=wheel_1.encoder_transmitter()
+                wheel2=wheel_2.encoder_transmitter()
+                wheel3=wheel_3.encoder_transmitter()
+                wheel4=wheel_4.encoder_transmitter()
+                wheelz=z_axis.encoder_transmitter()
+                msg = Float32MultiArray()
+                msg.data=[wheel1,wheel2,wheel3,wheel4]
+                pub.publish(msg)
+
 
             # Cleaning Up
             rospy.loginfo("Stopping Motors before exiting ...")
